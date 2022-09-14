@@ -1,27 +1,33 @@
-app = "redis-example"
+# fly.toml file generated for transsocial-redis on 2022-09-14T23:48:37+10:00
 
-[mounts]
-  destination = "/data"
-  source = "redis_server"
+app = "transsocial-redis"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
 
-[metrics]
-  port = 9091
-  path = "/metrics"
+[env]
 
-# Use the Docker image instead of building from source
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
 
-[build]
-  image = "flyio/redis:6.2.6"
+[[services]]
+  http_checks = []
+  internal_port = 6379
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
 
-# Uncomment these lines for public internet access to Redis on port 10000
-#
-# [[services]]
-# internal_port = 6379
-# protocol      = "tcp"
+  [[services.ports]]
+    handlers = []
+    port = 6379
 
-#   [[services.ports]]
-#   port     = "10000"
-
-#   [[services.tcp_checks]]
-#   interval = 10000
-#   timeout  = 2000
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
