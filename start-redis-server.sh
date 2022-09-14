@@ -21,4 +21,5 @@ MAXMEMORY=$(($FLY_VM_MEMORY_MB))
 redis-server --requirepass $REDIS_PASSWORD \
   --maxmemory "${MAXMEMORY}mb" \
   --maxmemory-policy $MAXMEMORY_POLICY \
-  --appendonly $APPENDONLY
+  --appendonly $APPENDONLY \
+  --maxclients 100
