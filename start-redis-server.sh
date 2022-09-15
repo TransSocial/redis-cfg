@@ -16,7 +16,7 @@ fi
 : ${FLY_VM_MEMORY_MB:=512}
 
 # Set maxmemory to 10% of available memory
-MAXMEMORY=$(($FLY_VM_MEMORY_MB))
+MAXMEMORY=$(($FLY_VM_MEMORY_MB-2))
 
 redis-server --requirepass $REDIS_PASSWORD \
   --maxmemory "${MAXMEMORY}mb" \
